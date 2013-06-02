@@ -1,0 +1,61 @@
+diff --git a/less/buttons.less b/less/buttons.less
+index 4cd4d86..29663f4 100644
+--- a/less/buttons.less
++++ b/less/buttons.less
+@@ -30,7 +30,6 @@
+   &:focus {
+     color: @grayDark;
+     text-decoration: none;
+-    background-position: 0 -15px;
+ 
+     // transition is only when going to hover/focus, otherwise the background
+     // behind the gradient (there for IE<=9 fallback) gets mismatched
+@@ -45,7 +44,6 @@
+   // Active state
+   &.active,
+   &:active {
+-    background-image: none;
+     outline: 0;
+     .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
+   }
+@@ -54,7 +52,6 @@
+   &.disabled,
+   &[disabled] {
+     cursor: default;
+-    background-image: none;
+     .opacity(65);
+     .box-shadow(none);
+   }
+diff --git a/less/mixins.less b/less/mixins.less
+index 79d8892..8f97a8f 100644
+--- a/less/mixins.less
++++ b/less/mixins.less
+@@ -511,9 +511,13 @@
+ // Button backgrounds
+ // ------------------
+ .buttonBackground(@startColor, @endColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
+-  // gradientBar will set the background to a pleasing blend of these, to support IE<=9
+-  .gradientBar(@startColor, @endColor, @textColor, @textShadow);
++  color: @textColor;
++  text-shadow: @textShadow;
++  background-color: @startColor;
+   *background-color: @endColor; /* Darken IE7 buttons by default so they stand out more given they won't have borders */
++  background-image: url(../img/gloss.png);
++  background-position: left center;
++  background-repeat: repeat-x;
+   .reset-filter();
+ 
+   // in these cases the gradient won't cover the background, so we override
+diff --git a/less/variables.less b/less/variables.less
+index 31c131b..bfcce96 100644
+--- a/less/variables.less
++++ b/less/variables.less
+@@ -86,7 +86,7 @@
+ // -------------------------
+ @btnBackground:                     @white;
+ @btnBackgroundHighlight:            darken(@white, 10%);
+-@btnBorder:                         #ccc;
++@btnBorder:                         rgba(0, 0, 0, 0.2);
+ 
+ @btnPrimaryBackground:              @linkColor;
+ @btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
